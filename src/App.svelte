@@ -20,26 +20,26 @@
 	const yellow = '#BB9F06';
 	const blue = '#769892';
 	const ltgrey = '#8F8F8F'
-	const dkgrey = '#414142'
+	const dkgrey = '#333'
 
-	const width = 800;
-	const height = 600;
+	const width = 1200;
+	const height = 550;
 
-	const padding = 5;
+	
 
 	let heightScale = d3.scaleLinear()
 				.domain([d3.min(data, d => d.total_length), d3.max(data, d => d.total_length)])
-				.range([5, height/9 - padding]);
+				.range([8, height/6]);
 	
 	let widthScale = d3.scaleBand()
-				.domain(d3.range(0,19))
+				.domain(d3.range(0,29))
 				.range([0, width-padding]);
 
-	// console.log(d3.range(0,19))
 	
+	// RECT HEIGHT AND WIDTH			
 	const maxHeight = heightScale(d3.max(data, d => d.total_length));
-	const barWidth = widthScale.bandwidth();
-	console.log(barWidth)
+	const barWidth = 30 //widthScale.bandwidth();
+	const padding = 10;
 	
 	// SVG Import
 	import InlineSVG from 'svelte-inline-svg';
@@ -52,6 +52,7 @@
 	//Swipe on mouse scroll
 	import { Swiper, SwiperSlide } from 'swiper/svelte';
 	import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel} from 'swiper';
+import { run_all } from 'svelte/internal';
 	SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Mousewheel]);
 
 	const options = {
@@ -68,10 +69,10 @@
 
 
 <main>
-	<Swiper
+<Swiper
 	direction={'vertical'}
     spaceBetween={30}
-    slidesPerView={1}
+    slidesPerView={0.5}
 	mousewheel={true}
 	speed={1000}
 	autoHeight={true}
@@ -109,61 +110,61 @@
 						transform='translate({d.index*(barWidth+padding)}, {d.row*maxHeight})'/>
 					<!-- PEOPLE -->
 					{#each d.schop_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={pink}/>
 					{/each}
 					{#each d.wagn_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={pink}/>
 					{/each}
 					{#each d.kant_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={pink}/>
 					{/each}
 		
 					<!-- GENERAL -->
 					{#each d.deutch_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={ltgrey}/>
 					{/each}
 					{#each d.musik_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={ltgrey}/>
 					{/each}
 		
 					<!-- PHILOSOPHY -->
 					{#each d.wille_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={blue}/>
 					{/each}
 					{#each d.ding_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={blue}/>
 					{/each}
 					{#each d.wahr_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={blue}/>
 					{/each}
 					{#each d.tragische_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={blue}/>
 					{/each}
 					{#each d.leiden_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={blue}/>
 					{/each}
 		
 					<!-- RELIGION -->
 					{#each d.hindu_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={yellow}/>
 					{/each}
 					{#each d.budd_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={yellow}/>
 					{/each}
 					{#each d.schleier_matches.matched_positions as e}
-						<rect width={barWidth} height='1' 
+						<rect width={barWidth} height='0.5' 
 						transform='translate({d.index*(barWidth+padding)}, {heightScale(e) + d.row*maxHeight})' fill={yellow}/>
 					{/each}
 				{/each}
@@ -181,9 +182,9 @@
 	<SwiperSlide>
 		<div class='textSwipe'>
 		<h2>What is this?</h2>
-		<p>This is a prototype created by students, Rocío Márquez Salguero, Sara Chodosh and Rebecca Pazos during the first workshop for their Masters for Visual Tools with the University of Girona.</p>
-		<p>They were assisted by mentors Karma Peiro and Carlo Zapponi as well as an expert on Nietzsche, Joaquin Campodonico.</p>
-		<p>The first static prototype was created in <a href="https://www.figma.com/file/XAEL4J1Z6TfVnyARgltc8U/workshop-1-shop-nietz?node-id=111%3A0">Figma</a>, code is hosted on <a href="https://github.com/sarachodosh/workshop1-nietzsche">Github</a> and what you are now seeing are the final efforts of an interactive prototype using D3 and some static SVGs.</p>
+		<p>This is a prototype created by students, <a href="https://www.linkedin.com/in/romarquez/">Rocío Márquez Salguero</a>, <a href="https://www.linkedin.com/in/sara-chodosh-0551778b/">Sara Chodosh</a>, and <a href="https://www.linkedin.com/in/rebeccapazos/">Rebecca Pazos</a> during the first workshop for their <a href="http://www.mastervisualtoolsudg.com/">Masters in Visual Tools to Empower Citizens</a> with the University of Girona.</p>
+		<p>They were assisted by mentors <a href="https://www.karmapeiro.com/en/landing-en/">Karma Peiró</a> and <a href="https://www.makinguse.com/">Carlo Zapponi</a> as well as an expert on Nietzsche, <a href="https://www.linkedin.com/in/joaqu%C3%ADn-campod%C3%B3nico-g%C3%B3mez-215527195">Joaquin Campodonico.</a></p>
+		<p>The first static prototype was created in <a href="https://www.figma.com/file/XAEL4J1Z6TfVnyARgltc8U/workshop-0.5-shop-nietz?node-id=111%3A0">Figma</a>, code is hosted on <a href="https://github.com/sarachodosh/workshop1-nietzsche">Github</a> and what you are now seeing are the final efforts of an interactive prototype using D3 and some static SVGs.</p>
 		<p>Our goal for the workshop was to:</p>
 		<ul>
 			<li>Provide a <strong>search & display</strong> function to explore his Posthumous fragments, realised in the third secion called "Fragments Explorer"</li>
@@ -191,13 +192,32 @@
 			<li>Provide a voting function to <strong>crowdsource sentiment analysis</strong>, realised in the third secion Please see prototype for more.</li>
 			<li>An additional search field for users to input their own terms for <strong>exploration</strong>, realised in the fourth section.</li>
 		</ul>
+		<h2>Ok, but why did we do this? Keep scrolling...</h2>
+		</div>
+	</SwiperSlide>
+	<SwiperSlide>
+		<div class='textSwipe'>
+		<h2>So, why? Because we wanted to visualise philosophy.</h2>
+		<p>The original idea was to apply data visualisation to philosophical texts so that we can create alternative ways to engage with philosophical concepts. The focus is on a known narrative in the philosophical sphere, that of the philosopher Nietzsche and his relationship with Schopenhauer. Much of Nietzsche’s concepts are influenced by his admiration, and later disapproval of Schopenhauer.</p>
+		<p>It remains a mystery how this happened so we wanted to visualize the terms associated with Shopenhauer’s name. Originally, we had wanted to apply sentiment analysis but realised that we should 'spark' debate, not impose, as is inline with philosophy in general.</p>
+		<p>Also, we had trouble with natural language processing techniques and need to learn more!</p>
+		<h2>Finally, a bit about the data...</h2>
+		</div>
+	</SwiperSlide>
+	<SwiperSlide>
+		<div class='textSwipe'>
+		<h2>It is Nietzche's point-of-view, after all.</h2>
+		<p>The data is taken from <a href="http://www.nietzschesource.org/#eKGWB/NF-1869,1">Nietzsche Source</a>. More details about the particular edition we are using can be found <a href="http://doc.nietzschesource.org/en/eKGWB">here</a>. Nietzsche Source supports a fully open access policy. All content is published under Creative Commons General Public License "Attribution, Non-Commercial, NoDerivatives".</p>
+		<p>We chose to do our analysis in German in order to avoid anything being lost in translation. Later, we will add English translation by approved authorities who are experts on Nietzsche and understand the intricacies of his use of words.</p>
+		<p>Regarding bias, as this is purely based on Nietzsche and his thoughts, it comes with his inherent bias and historical bias. We think we are able to address this by framing our analysis from his 'point-of-view'.</p>
+		<p>This is a sample experiement of how philosophical texts can be visualised in order to encourage others to uplift more diverse voices in philoshopy for future projects.</p>
 		<p>If you would like to know more, please feel free to contact Rebecca Pazos on <a href="https://www.linkedin.com/in/rebeccapazos/">LinkedIn</a>.</p>
 		</div>
 	</SwiperSlide>
 	<div class="swiper-pagination" slot="pagination"></div>
  	<div class="swiper-button-next" slot="button-next"></div>
   	<div class="swiper-button-prev" slot="button-prev"></div>
-  </Swiper>
+</Swiper>
 
 </main>
 
@@ -209,15 +229,7 @@
 	.textSwipe {
 		width: 800px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color:white;
-		font-family: 'PlayFair Display', serif;
-		font-size: 80px;
-		font-weight: 900;
-		text-align: left;
-		padding: 0 50px;
+		color: white;
 	}
 	
 	h2 {
@@ -230,13 +242,14 @@
 
 	a {
 		color: #D22273;
+		font-weight: 600;
 	}
 
 	p, ul {
 		color: white;
-		opacity: 0.7;
+		opacity: 0.8;
 		font-family: 'Open Sans', sans-serif;
-		font-size: 20px;
+		font-size: 22px;
 		line-height: 28px;
 		text-align: left;
 	}
@@ -246,7 +259,7 @@
 	}
 
 	strong {
-		opacity: 0.9;
+		opacity: 1.2;
 	}
 
 	.full-width {
@@ -254,9 +267,9 @@
 	}
 
 	.fragments-d3 {
-		width: 1000px;
+		width: 1200px;
 		position: fixed;
-		margin: -15vh 0 0 20vw;
+		margin: -20vh 0 0 20vw;
 	}
 
 	Swiper {
